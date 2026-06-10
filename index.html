@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análise de Prospecção – Neppo</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f8f7f5;
+    --surface: #ffffff;
+    --border: #e8e4df;
+    --text: #1a1a1a;
+    --muted: #6b6560;
+    --accent: #2563eb;
+    --accent-light: #eff4ff;
+    --red: #dc2626;
+    --red-light: #fef2f2;
+    --green: #16a34a;
+    --green-light: #f0fdf4;
+    --amber: #d97706;
+    --amber-light: #fffbeb;
+    --radius: 10px;
+  }
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.7;
+    padding: 40px 20px 80px;
+  }
+  .wrapper { max-width: 900px; margin: 0 auto; }
+  header {
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  h1 { font-size: 32px; font-weight: 700; line-height: 1.2; margin-bottom: 12px; }
+  .meta { font-size: 14px; color: var(--muted); }
+  .meta span { margin-right: 20px; }
+  section { margin-bottom: 48px; }
+  h2 {
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 { font-size: 16px; font-weight: 600; margin-bottom: 10px; margin-top: 24px; }
+  p { margin-bottom: 14px; color: #2d2d2d; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 24px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; margin-bottom: 24px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+  .card .value { font-size: 28px; font-weight: 700; line-height: 1; margin-bottom: 6px; }
+  .card .label-card { font-size: 12px; color: var(--muted); font-weight: 500; }
+  .card.red { border-left: 3px solid var(--red); }
+  .card.green { border-left: 3px solid var(--green); }
+  .card.amber { border-left: 3px solid var(--amber); }
+  .card.blue { border-left: 3px solid var(--accent); }
+  .value.red { color: var(--red); }
+  .value.green { color: var(--green); }
+  .value.amber { color: var(--amber); }
+  .value.blue { color: var(--accent); }
+  .alert {
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+  .alert.red { background: var(--red-light); border: 1px solid #fecaca; }
+  .alert.green { background: var(--green-light); border: 1px solid #bbf7d0; }
+  .alert.amber { background: var(--amber-light); border: 1px solid #fde68a; }
+  .alert strong { font-weight: 600; }
+  .block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .block h3 { margin-top: 0; }
+  .block p:last-child { margin-bottom: 0; }
+  .pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-right: 6px;
+    margin-bottom: 4px;
+  }
+  .pill.red { background: var(--red-light); color: var(--red); }
+  .pill.green { background: var(--green-light); color: var(--green); }
+  .pill.amber { background: var(--amber-light); color: var(--amber); }
+  .pill.blue { background: var(--accent-light); color: var(--accent); }
+  .pill.default { background: #f2f0ec; color: var(--muted); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  th {
+    background: #f2f0ec;
+    font-weight: 600;
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 12px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  td { padding: 12px 16px; border-top: 1px solid var(--border); vertical-align: top; }
+  tr:hover td { background: #fafaf9; }
+  .bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .bar-label { font-size: 13px; width: 280px; flex-shrink: 0; }
+  .bar-track { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+  .bar-pct { font-size: 13px; font-weight: 600; width: 40px; text-align: right; }
+  .bar-fill.red { background: var(--red); }
+  .bar-fill.green { background: var(--green); }
+  .bar-fill.amber { background: var(--amber); }
+  .bar-fill.blue { background: var(--accent); }
+  .numbered { counter-reset: item; list-style: none; padding: 0; margin: 0; }
+  .numbered li {
+    counter-increment: item;
+    display: flex;
+    gap: 14px;
+    margin-bottom: 18px;
+    align-items: flex-start;
+  }
+  .numbered li::before {
+    content: counter(item);
+    min-width: 28px;
+    height: 28px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .numbered li p { margin: 0; }
+  .numbered li strong { font-weight: 600; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .cadencia-step {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .cadencia-step:last-child { border-bottom: none; }
+  .step-dia {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    width: 40px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .step-items { font-size: 14px; }
+  .step-items span { display: block; }
+  footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  @media (max-width: 600px) {
+    .grid-4 { grid-template-columns: repeat(2,1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .bar-label { width: 160px; font-size: 12px; }
+    h1 { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <div class="label">Neppo / Operação Comercial</div>
+    <h1>Análise de Prospecção</h1>
+    <div class="meta">
+      <span>Período: 01/06/2026 a 10/06/2026</span>
+      <span>SDR: Iara Martins</span>
+      <span>Cadências: Inbound LinkedIn · Inbound Ativo (AC) · SDR IA</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>Visão Geral do Período</h2>
+    <div class="grid-4">
+      <div class="card">
+        <div class="value">65</div>
+        <div class="label-card">Total de leads</div>
+      </div>
+      <div class="card green">
+        <div class="value green">11</div>
+        <div class="label-card">Ganhos (17%)</div>
+      </div>
+      <div class="card red">
+        <div class="value red">11</div>
+        <div class="label-card">Perdidos (17%)</div>
+      </div>
+      <div class="card amber">
+        <div class="value amber">~42</div>
+        <div class="label-card">Em execução</div>
+      </div>
+    </div>
+    <div class="grid-4">
+      <div class="card blue">
+        <div class="value blue">1.339</div>
+        <div class="label-card">Atividades realizadas</div>
+      </div>
+      <div class="card">
+        <div class="value">414</div>
+        <div class="label-card">Ligações feitas</div>
+      </div>
+      <div class="card red">
+        <div class="value red">4%</div>
+        <div class="label-card">Ligações significativas</div>
+      </div>
+      <div class="card">
+        <div class="value">20%</div>
+        <div class="label-card">Engajamento de e-mail</div>
+      </div>
+    </div>
+    <p>No acumulado do mês, a taxa de engajamento geral ficou em 34% (79 de 232 leads finalizados) e a conversão para ganho em 7% (16 de 232). Toda a geração de resultado está concentrada em uma única SDR, Iara Martins, que sozinha fechou os 16 ganhos do mês com 8% de conversão sobre seus leads finalizados.</p>
+  </section>
+
+  <section>
+    <h2>Qualidade dos Leads</h2>
+    <p>Este é o ponto mais crítico da operação. A base do período reúne perfis completamente distintos, desde oportunidades enterprise reais até pessoas físicas sem qualquer relação com o produto. A presença de leads fora do ICP consome capacidade de prospecção sem nenhuma chance de retorno.</p>
+    <div class="alert red">
+      <strong>63% dos leads perdidos no mês saíram por "não houve contato: perda automática".</strong> A cadência esgotou as tentativas sem que o lead respondesse a nenhum touchpoint, o que é compatível com uma base parcialmente fora do perfil ideal de cliente.
+    </div>
+    <div class="block">
+      <h3>Leads sem fit identificados no período</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Lead</th>
+            <th>Problema identificado</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Jaqueline</td>
+            <td>Nota registrada: "Procurando emprego"</td>
+            <td><span class="pill red">Perdido</span></td>
+          </tr>
+          <tr>
+            <td>Eliane</td>
+            <td>E-mail trabalho.gov.br – órgão público federal</td>
+            <td><span class="pill red">Perdido</span></td>
+          </tr>
+          <tr>
+            <td>David</td>
+            <td>E-mail universitário (academico.ufpb.br)</td>
+            <td><span class="pill amber">Ativo</span></td>
+          </tr>
+          <tr>
+            <td>Amanda</td>
+            <td>E-mail universitário (ufms.br)</td>
+            <td><span class="pill red">Perdido</span></td>
+          </tr>
+          <tr>
+            <td>Ketney</td>
+            <td>Microempresa de guincho, quer postar em grupos do WhatsApp</td>
+            <td><span class="pill green">Ganho*</span></td>
+          </tr>
+          <tr>
+            <td>Vanessa</td>
+            <td>Clínica solo, 1 operadora, teto de orçamento abaixo do plano base</td>
+            <td><span class="pill green">Ganho*</span></td>
+          </tr>
+          <tr>
+            <td>Joaquim / Matheus / Aguida</td>
+            <td>Pessoas físicas</td>
+            <td><span class="pill red">Perdidos</span></td>
+          </tr>
+          <tr>
+            <td>Pedro</td>
+            <td>Empresa "E-book", site "Telegrama"</td>
+            <td><span class="pill amber">Ativo</span></td>
+          </tr>
+          <tr>
+            <td>TESTE (Caio Dias / Neppo)</td>
+            <td>Lead interno de teste dentro da cadência de produção</td>
+            <td><span class="pill amber">Ativo</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size:13px;color:var(--muted);margin:0">* Marcados como Ganho pelo sistema, mas com diagnóstico interno de baixo fit e alta probabilidade de não fechamento ou no-show.</p>
+    </div>
+    <p>Cerca de 25 a 30% dos leads do período são claramente fora do ICP antes mesmo da primeira interação. A recomendação é implementar critério de pré-qualificação automático: presença de site ativo, domínio empresarial, volume mínimo de atendimento declarado, e exclusão de e-mails com domínios de universidades e órgãos públicos.</p>
+  </section>
+
+  <section>
+    <h2>Motivos de Perda</h2>
+    <div class="block">
+      <div class="bar-row">
+        <div class="bar-label">Não houve contato: perda automática</div>
+        <div class="bar-track"><div class="bar-fill red" style="width:63%"></div></div>
+        <div class="bar-pct">63%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Sem resposta após 9 tentativas</div>
+        <div class="bar-track"><div class="bar-fill amber" style="width:9%"></div></div>
+        <div class="bar-pct">9%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Sem dados suficientes para contato</div>
+        <div class="bar-track"><div class="bar-fill amber" style="width:8%"></div></div>
+        <div class="bar-pct">8%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Sem interesse</div>
+        <div class="bar-track"><div class="bar-fill blue" style="width:6%"></div></div>
+        <div class="bar-pct">6%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Pessoa física</div>
+        <div class="bar-track"><div class="bar-fill blue" style="width:5%"></div></div>
+        <div class="bar-pct">5%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Contato inicial e parou de responder</div>
+        <div class="bar-track"><div class="bar-fill blue" style="width:2%"></div></div>
+        <div class="bar-pct">2%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Procurando emprego</div>
+        <div class="bar-track"><div class="bar-fill blue" style="width:2%"></div></div>
+        <div class="bar-pct">2%</div>
+      </div>
+    </div>
+    <p>O dado mais revelador é a combinação entre perda automática por inatividade (63%), pessoa física (5%) e sem dados para contato (8%). Somados, esses três motivos chegam a 76% das perdas e todos apontam para o mesmo problema de origem: leads entrando na cadência sem qualificação prévia adequada.</p>
+  </section>
+
+  <section>
+    <h2>Análise das Cadências</h2>
+
+    <div class="block">
+      <h3>Cadência: Inbound LinkedIn</h3>
+      <div class="tag-list">
+        <span class="pill blue">Inbound ativo</span>
+        <span class="pill blue">Prioridade muito alta</span>
+        <span class="pill amber">6 dias / 8 atividades</span>
+        <span class="pill default">~27 leads no período</span>
+      </div>
+      <br>
+      <div class="cadencia-step">
+        <div class="step-dia">Dia 1</div>
+        <div class="step-items">
+          <span>&#128222; Ligação – Validar SLA e interesse</span>
+          <span>&#128172; WhatsApp #1 – Cadencia Inbound Ativo</span>
+        </div>
+      </div>
+      <div class="cadencia-step">
+        <div class="step-dia">Dia 2</div>
+        <div class="step-items">
+          <span>&#128222; Ligação – Validar SLA e interesse</span>
+          <span>&#9993; E-mail #2</span>
+        </div>
+      </div>
+      <div class="cadencia-step">
+        <div class="step-dia">Dia 4</div>
+        <div class="step-items">
+          <span>&#128222; Ligação – Validar SLA e interesse</span>
+          <span>&#9993; E-mail de conexão inicial</span>
+          <span>&#128172; WhatsApp – Mostrar autoridade e gerar desejo</span>
+        </div>
+      </div>
+      <div class="cadencia-step">
+        <div class="step-dia">Dia 6</div>
+        <div class="step-items">
+          <span>&#128172; WhatsApp – Breakup leve</span>
+        </div>
+      </div>
+      <br>
+      <div class="alert amber">
+        <strong>Problema central:</strong> cadência encerrada em 6 dias para leads originados no LinkedIn, canal onde o ciclo de resposta tende a ser mais lento. Nenhuma atividade de engajamento via LinkedIn nativo (InMail, curtida, comentário em post), mesmo sendo esse o canal de origem. A última atividade registrada na quase totalidade desses leads é Social Point, sem nenhuma resposta, e eles encerram automaticamente sem nota registrada.
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Cadência: Leads Inbound Ativo (activecampaign)</h3>
+      <div class="tag-list">
+        <span class="pill blue">Inbound ativo</span>
+        <span class="pill blue">Prioridade muito alta</span>
+        <span class="pill green">7 dias / 11 atividades</span>
+        <span class="pill default">~23 leads no período</span>
+      </div>
+      <br>
+      <div class="cadencia-step">
+        <div class="step-dia">Dia 1</div>
+        <div class="step-items">
+          <span>&#128222; Ligação + &#128172; WhatsApp + &#128269; Pesquisa + &#9993; E-mail</span>
+        </div>
+      </div>
+      <div class="cadencia-step">
+        <div class="step-dia">Dia 2</div>
+        <div class="step-items"><span>&#128222; Ligação</span></div>
+      </div>
+      <div class="cadencia-step">
+        <div class="step-dia">Dia 3</div>
+        <div class="step-items">
+          <span>&#9993; E-mail #2 + &#128222; Ligação + &#128172; WhatsApp #1</span>
+        </div>
+      </div>
+      <div class="cadencia-step">
+        <div class="step-dia">Dia 6</div>
+        <div class="step-items">
+          <span>&#9993; E-mail #3 + &#128222; Ligação + &#128172; WhatsApp (breakup / perda automática)</span>
+        </div>
+      </div>
+      <br>
+      <div class="alert green">
+        <strong>Ponto forte:</strong> esta cadência gera os melhores resultados do período. Todos os leads com diagnóstico de oportunidade preenchido (GABRIEL/ICO, Lucas/Atacadão, Diogo/Multfila, Yuri/Central de Consultas, Debora/Bild, Yara/New Pilates, Julio/OI Digital, Caroline/Scire, Patrício/Hotel Ipê Center) foram convertidos como Ganho. A SDR demonstra domínio técnico e capacidade de construir narrativa de valor quando há conexão real com o lead.
+      </div>
+      <div class="alert amber">
+        <strong>Ponto de atenção:</strong> a atividade de Pesquisa está configurada no mesmo Dia 1 junto com ligação, WhatsApp e e-mail. Isso indica que a pesquisa acontece de forma reativa, junto ou depois do primeiro contato, e não preventiva. O tempo de resposta varia entre 0 e 558 minutos no mesmo bloco de leads, apontando inconsistência no processo de atendimento a novos leads.
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Cadência: SDR IA</h3>
+      <div class="tag-list">
+        <span class="pill blue">Inbound ativo</span>
+        <span class="pill amber">Prioridade alta</span>
+        <span class="pill red">2 dias / 4 atividades</span>
+        <span class="pill default">~15 leads no período</span>
+      </div>
+      <br>
+      <div class="cadencia-step">
+        <div class="step-dia">Dia 1</div>
+        <div class="step-items">
+          <span>&#128269; Validar informações da agenda criada pela SDR</span>
+          <span>&#9993; E-mail #1 – Cadencia Inbound Ativo</span>
+        </div>
+      </div>
+      <div class="cadencia-step">
+        <div class="step-dia">Dia 2</div>
+        <div class="step-items">
+          <span>&#128222; Ligação – Cadencia Inbound Ativo</span>
+          <span>&#128172; WhatsApp #1 – Cadencia Inbound Ativo</span>
+        </div>
+      </div>
+      <br>
+      <div class="alert red">
+        <strong>Problema grave:</strong> apenas 2 dias e 4 atividades para leads originados via WhatsApp, canal onde o lead já tem histórico de conversa com a IA. A transição para a SDR humana começa com e-mail, canal diferente do qual o lead usou para interagir, descartando o contexto já criado. Após os 4 passos, não há nenhum followup adicional. A cadência tem perda automática configurada para 15 dias úteis, o que cria um silêncio longo entre o fim das atividades e a marcação como perdido.
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Execução e Qualidade das Atividades</h2>
+    <div class="grid-4">
+      <div class="card green">
+        <div class="label">Pesquisa</div>
+        <div class="value green">93%</div>
+        <div class="label-card">execução (51/55)</div>
+      </div>
+      <div class="card blue">
+        <div class="label">E-mail</div>
+        <div class="value blue">98%</div>
+        <div class="label-card">execução (254/260)</div>
+      </div>
+      <div class="card amber">
+        <div class="label">Ligação</div>
+        <div class="value amber">87%</div>
+        <div class="label-card">execução (454/521)</div>
+      </div>
+      <div class="card red">
+        <div class="label">Social Point</div>
+        <div class="value red">65%</div>
+        <div class="label-card">execução (372/576)</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Social Points: gap operacional crítico</h3>
+      <p>Enquanto e-mail chega a 98% de execução, 35% das atividades de Social Point (WhatsApp e LinkedIn) simplesmente não acontecem. Para uma empresa que vende uma plataforma de atendimento omnichannel com WhatsApp como canal central, não executar mensagens nesse canal é uma contradição de posicionamento. O motivo desse gap precisa ser mapeado com urgência: sobrecarga de volume, falta de template estruturado, conta bloqueada ou outra causa operacional.</p>
+    </div>
+
+    <div class="block">
+      <h3>Ligações: volume alto, resultado baixo</h3>
+      <p>São 414 ligações no mês com apenas 4% de chamadas significativas. Isso representa aproximadamente 397 ligações que caíram em caixa postal, não foram atendidas ou geraram conversas curtas sem qualidade. Há indícios de que as ligações estão sendo feitas em bloco no início da manhã: no dia 01/06, por exemplo, vários leads têm a primeira ligação registrada em intervalos de minutos entre 09h48 e 09h57. Essa concentração de horário reduz sensivelmente a taxa de conexão real.</p>
+    </div>
+
+    <div class="block">
+      <h3>E-mails: disciplina na execução, personalização a desenvolver</h3>
+      <p>98% de execução com 20% de engajamento. O esforço existe, mas a taxa de abertura e resposta aponta que o conteúdo dos e-mails não está convertendo com a consistência esperada para leads inbound que já demonstraram interesse inicial. Subject lines genéricos e corpo do e-mail padronizado para todos os segmentos são hipóteses a investigar.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Qualidade do Diagnóstico e Clareza sobre o Produto</h2>
+    <p>Existe um contraste muito nítido entre dois grupos de leads neste período.</p>
+    <div class="grid-2">
+      <div class="block">
+        <h3>Leads com diagnóstico <span class="pill green">11 leads</span></h3>
+        <p>Clareza total sobre o produto. Os diagnósticos NEPC mapeiam dor, potencial de receita, decisor e o momento de maior impacto na demonstração. Leads como Yuri/Central de Consultas (Enterprise), Caroline/Scire (Construtora de grande porte) e Patrício/Hotel Ipê Center demonstram uma SDR com domínio técnico e narrativa de valor muito bem construída.</p>
+      </div>
+      <div class="block">
+        <h3>Leads sem nota <span class="pill red">~54 leads</span></h3>
+        <p>Nenhuma anotação após 8 atividades finalizadas. Não se sabe se o lead atendeu, qual objeção surgiu ou qual seria o próximo passo. Toda a inteligência comercial das tentativas de contato foi perdida, impedindo análise de padrões e personalização de cadências futuras.</p>
+      </div>
+    </div>
+    <div class="alert amber">
+      <strong>Ponto de atenção registrado:</strong> o diagnóstico do lead Diogo (Multfila) documenta que a SDR chamou o lead de "Diego" no início da interação. Pequenos erros de personalização que só aparecem quando há nota sugerem que os leads sem nota podem conter situações similares que simplesmente não foram registradas.
+    </div>
+  </section>
+
+  <section>
+    <h2>Recomendações</h2>
+    <ul class="numbered">
+      <li>
+        <p><strong>Filtrar leads antes de inserir na cadência.</strong> Implementar critério mínimo: CNPJ ativo, site operacional e volume de atendimento acima de um threshold definido. Excluir automaticamente domínios de órgãos públicos e universidades. Isso sozinho pode reduzir em 25% a 30% o desperdício de atividades.</p>
+      </li>
+      <li>
+        <p><strong>Ampliar a cadência de Inbound LinkedIn para no mínimo 12 dias.</strong> Acrescentar atividades de engajamento via LinkedIn nativo (conexão, mensagem direta, comentário em post) nos dias intermediários, explorando o canal de origem do lead em vez de ignorá-lo completamente.</p>
+      </li>
+      <li>
+        <p><strong>Diagnosticar e resolver o gap de Social Points.</strong> 35% de não execução nas mensagens de WhatsApp é o maior buraco operacional das cadências. É urgente entender se o problema é volume, técnico ou falta de template pronto para uso rápido.</p>
+      </li>
+      <li>
+        <p><strong>Redirecionar ligações para leads já engajados.</strong> Com 4% de ligações significativas, ligar para todos os leads na mesma lógica não funciona. Priorizar ligações para quem já abriu e-mail ou respondeu WhatsApp, reservando energia de voz para oportunidades com sinal real de interesse.</p>
+      </li>
+      <li>
+        <p><strong>Distribuir os horários de ligação ao longo do dia.</strong> Concentrar ligações entre 09h e 10h reduz a taxa de atendimento. Testar janelas de 12h-13h30 e 17h-18h30 como horários alternativos com maior probabilidade de conexão.</p>
+      </li>
+      <li>
+        <p><strong>Reestruturar a cadência SDR IA.</strong> Expandir para 7 a 10 dias, priorizar WhatsApp como canal de continuidade (respeitando o canal onde o lead já interagiu com a IA) e usar o contexto da conversa anterior como abertura da abordagem humana.</p>
+      </li>
+      <li>
+        <p><strong>Tornar obrigatório o registro de nota após toda tentativa de contato.</strong> Ao menos: atendeu ou não atendeu, qual reação, qual o próximo passo. Leads ativos com 8 atividades finalizadas e zero anotações representam inteligência comercial desperdiçada e impossibilitam melhoria contínua do processo.</p>
+      </li>
+      <li>
+        <p><strong>Diferenciar a abordagem por porte do cliente.</strong> A cadência atual trata microempreendedor solo e empresa enterprise com o mesmo fluxo e mesmo roteiro. Criar ao menos dois caminhos distintos: um para SMB (ciclo mais curto, foco em campanhas ativas e ROI rápido) e outro para Mid-Market e acima (ciclo maior, diagnóstico técnico, envolvimento de comitê).</p>
+      </li>
+      <li>
+        <p><strong>Remover o lead de teste da base de produção.</strong> O lead interno (caio.dias@neppo.com.br) está ativo na cadência real, distorcendo métricas e consumindo atividades da SDR desnecessariamente.</p>
+      </li>
+      <li>
+        <p><strong>Escalar o time ou reduzir o volume.</strong> Toda a geração de resultado recai sobre uma única SDR. Ou o time recebe reforço, ou o volume de leads é reduzido para concentrar energia nos leads com maior probabilidade de fechamento e manter a qualidade de diagnóstico que gera os ganhos.</p>
+      </li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>Dados extraídos da Meetime – período 01/06/2026 a 10/06/2026</span>
+    <span>Neppo / Operação Comercial</span>
+  </footer>
+
+</div>
+</body>
+</html>

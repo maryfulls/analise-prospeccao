@@ -1,0 +1,60 @@
+Análise Detalhada dos Leads — Meetime
+Total analisado: 69 leads | Período: 01/06 a 10/06/2026 | Cadências: Inbound LinkedIn, Inbound Ativo (Active Campaign) e SDR IA
+
+📊 Composição Geral dos 69 Leads
+Por status:
+
+Ativo (em andamento): ~42 leads (~61%)
+Ganho: 11 leads (~16%)
+Perdido: ~16 leads (~23%)
+
+Por canal de origem:
+
+LinkedIn (origem linkedin): ~20 leads — todos via campanha "TLA-conversao novo" / "TLA"
+WhatsApp (origem whatsapp): ~14 leads — todos na Cadência SDR IA
+Site / Active Campaign (origem site, email ActiveCampaign, google, demo): ~35 leads — Cadência Inbound Ativo
+
+
+🏆 Análise dos Leads Ganhos (11 opps)
+Esses são os leads que mais revelam o perfil ideal de cliente. Aqui o padrão é claro:
+Gabriel — Instituto de Cardiologia de Ourinhos (ICO) · Cadência Inbound Ativo · Gerente de recepção de clínica · Dor: lentidão no atendimento de pacientes via WhatsApp. Lead com diagnóstico detalhado e reunião agendada. Fit excelente.
+Lucas Bastos — Atacadão Posto 13 · Cadência Inbound Ativo · Gestor de tráfego da V4 Company · Dor: interface para hospedar número de API e visualizar conversas de disparos ativos. Lead técnico de agência com urgência. Origem: botão "Contrate Agora" no site — forte sinal de intenção de compra.
+Diogo — TF Imports / Multfila · Cadência Inbound Ativo · Gerente de pós-venda · Dor: 16 chips de WhatsApp descentralizados, precisa estruturar abertura de tickets de garantia. Urgência alta — ele mesmo cortou o roteiro para pedir o agendamento. Fit alto.
+Yuri Pereira — Central de Consultas · Cadência Inbound Ativo (por troca de cadência) · Analista/TI · Call center de 40 operadores, 30.000 atendimentos/mês. Busca discador automático. Classificado como "Tubarão/Gigante" — maior oportunidade do lote.
+Débora Yoshida — Bild Desenvolvimento Imobiliário · SDR IA · Consultora Bild · Dor: disparos em massa sem tomar bloqueio no WhatsApp. Origem: WhatsApp. Lead pessoal mas debaixo de uma construtora gigante (7.000+ imóveis entregues). Potencial de expansão para a corporação inteira.
+Yara — New Pilates · Cadência Inbound Ativo · SDR gerenciando 100–200 leads/dia com 10 consultoras · Integra Ploomes (mesmo grupo Sankhya). Urgência alta, atrito por falha de passagem de bastão interno. Importado manualmente.
+Ketney — Auto Socorro A Mão de Deus · SDR IA · Origem WhatsApp · ⚠️ ALERTA: A própria anotação da SDR classifica como "MICRO / DESQUALIFICADO" com altíssima probabilidade de no-show. Microempresa de reboque, quer postar em grupos do WhatsApp (uso proibido pela Meta), faturamento muito abaixo do ticket mínimo. Este "ganho" pode não se converter.
+Vanessa Cunha — Podon Pé Podologia · SDR IA · Proprietária solo · Dor: reengajamento de pacientes sumidos. ⚠️ ALERTA: Também classificada com "MICRO / ALERTA DE FIT" — opera sozinha, ticket R$ 1.790 está acima da percepção de valor. "Ganho" de agenda, não de contrato.
+Julio — OI Digital · Cadência Inbound Ativo · Proprietário de franquia de 2 clínicas de radiologia odontológica · Dor: automatizar triagem e agendamentos. Lead maduro, fechou reunião para o dia seguinte. Fit alto.
+Caroline Silva — Scire Empreendimentos · Cadência Inbound Ativo · Analista financeira · Construtora de grande porte (CNPJ: R$50–150mi/ano estimado) · Dor: régua de cobrança manual. Fit altíssimo, Classificada como "Tubarão/Gigante". Segunda maior oportunidade do lote ao lado da Central de Consultas.
+Patrício — Hotel Ipê Center · Cadência Inbound Ativo · Coordenador · 3.000 atendimentos/mês via WhatsApp · Dor: atendimento 24h e IA em voz + trauma com API anterior. Agenda confirmada para o dia seguinte. Fit alto.
+Talis — Sandkos Moda · Cadência Inbound Ativo · Proprietário/Gerente · Já usa API Oficial + CRM 360. Volumetria baixa (~200 contatos/mês), mas lead maduro tecnicamente e com urgência. ⚠️ Fit médio — custo vs. volume é uma barreira.
+
+🚨 Insights Críticos de Qualidade
+1. Leads do LinkedIn chegam completamente sem dados de empresa e cargo
+De todos os leads originados via LinkedIn (canal linkedin, cadência "Inbound LinkedIn"), a esmagadora maioria — Gabriel, Nathan, Thiago, Josimar, David, Ana, Adenilto, Eliane, Jaqueline, Maria, Malver, Carla e Barbara — chegou com os campos Empresa, Cargo e Site completamente em branco (-). Isso é um alerta grave: o formulário ou a integração do LinkedIn não está capturando esses dados essenciais para qualificação. O SDR fica literalmente às cegas sobre com quem está falando antes da primeira ligação.
+2. Leads do LinkedIn têm perfil altamente problemático
+Entre os leads do LinkedIn com alguma informação ou que foram perdidos, o padrão é preocupante:
+
+Amanda (email @ufms.br): universitária, motivo de perda "Pessoa física"
+Eliane (email @trabalho.gov.br): órgão público, perdido por "Departamento Público - Licitação"
+Jaqueline (email @live.com, anotação "Procurando emprego"): candidata a emprego
+Malver (email @usp.br, anotação "respondeu no LinkedIn mas não tem interesse no momento"): universitário sem intenção de compra
+
+O domínio dos emails diz tudo: @ufms.br, @trabalho.gov.br, @usp.br, @academico.ufpb.br. São endereços de universidades, órgãos públicos e e-mails pessoais — nenhum deles é perfil B2B comprador. O LinkedIn está gerando um público completamente errado.
+3. Lead duplicado identificado: Vitor (Ótica Rio das Ostras)
+O Vitor de oticas.riodasostras@hotmail.com aparece duas vezes na lista — uma vez na Cadência Inbound Ativo (origem: paginademo) e outra na Cadência SDR IA (origem: whatsapp). Esse tipo de duplicidade desperdiça atividades do time e pode gerar experiência confusa para o lead.
+4. Lead interno de teste contaminando os números
+O lead "TESTE — caio.dias@neppo.com.br" com empresa "TESTE NAO APAGAR" está na Cadência Inbound Ativo com status Ativo, consumindo 9 atividades e distorcendo as métricas de conversão e atividades do período.
+5. SDR IA está convertendo leads fora do ICP como "ganhos"
+Os leads Ketney (guincho), Vanessa (podologia solo) e Débora (corretora individual Bild) foram marcados como "Ganho" pela SDR IA, mas as próprias anotações sinalizam altíssimo risco de no-show e desqualificação. A SDR IA está agendando reuniões com leads fora do ICP, inflando o número de opps sem gerar receita real. Isso distorce a meta de 72 opps se esses leads não converterem.
+6. Cadência Inbound Ativo concentra as opps de maior valor
+Das maiores oportunidades do lote (Scire, Central de Consultas, ICO, TF Imports, Hotel Ipê Center, New Pilates), todas vieram da Cadência Inbound Ativo. Esses leads chegam com mais contexto, têm dores mais claras e agem mais rápido — confirmam reunião na mesma ligação ou no mesmo dia.
+7. Leads de Active Campaign antigos sendo reativados
+Os leads MARCELO (origem: DEZ - 25 - Newsletter Neppo - Colaboradores - 03/12) e Neli (origem: OUT - 25 - Webinar Black Friday 02 - Clientes - 10/10) vieram de campanhas de dezembro e outubro de 2025. São leads de régua antiga que estão entrando na cadência ativa agora, em junho de 2026. Isso pode explicar parte da baixa taxa de contato — o lead está "frio" há meses antes mesmo de entrar na cadência.
+8. Origem google identificada pela primeira vez
+O lead Gabriele (Byten Fit) chegou com origem-fonte: sitelink / search / google, indicando que há leads chegando via Google Ads ou SEO orgânico — e estão sendo direcionados para a mesma Cadência Inbound Ativo. Vale validar se a segmentação de campanha Google está correta.
+
+✅ Resumo dos Insights para o Freelancer
+Com base nos dados individuais dos 69 leads, o quadro real é este: o maior problema de qualidade não está no volume, mas na composição do público gerado pelo LinkedIn. A campanha está captando candidatos a emprego, funcionários de órgãos públicos e universitários — nenhum deles é comprador. Isso explica a taxa de "perda automática" de 79% nessa cadência: não é que o SDR não consegue contato, é que o lead nunca foi um potencial cliente.
+O que funciona bem e deve ser escalado é o Inbound Ativo via Active Campaign — os leads chegam com site, empresa e cargo identificáveis, convertem na primeira ligação e têm dores claras de médio-grande porte. Para alcançar a meta de 72 opps, o foco deve ser exclusivamente em aumentar o volume de leads qualificados dessa origem, com segmentação rigorosa de perfil empresarial B2B, e não simplesmente elevar o volume total do LinkedIn que dilui o resultado.

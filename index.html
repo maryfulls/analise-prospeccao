@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório de Prospecção | Meetime | 01 a 16 jun 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: #ffffff;
+    color: #2d2d2d;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  /* CABEÇALHO */
+  .page-header {
+    background: #1c2b3a;
+    color: #ffffff;
+    padding: 36px 48px;
+  }
+  .page-header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    margin-bottom: 6px;
+  }
+  .page-header p {
+    font-size: 13px;
+    color: #aab4be;
+  }
+  .page-header .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+  }
+  .page-header .tags span {
+    background: rgba(255,255,255,0.1);
+    color: #dce3ea;
+    font-size: 11.5px;
+    padding: 3px 12px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  /* LAYOUT GERAL */
+  .content {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 40px 32px;
+  }
+
+  .section {
+    margin-bottom: 48px;
+  }
+
+  .section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1c2b3a;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e8ebee;
+    margin-bottom: 22px;
+  }
+
+  h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1c2b3a;
+    margin: 20px 0 10px;
+  }
+
+  p {
+    font-size: 13.5px;
+    color: #444;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    padding-left: 20px;
+    margin-bottom: 12px;
+  }
+  li {
+    font-size: 13.5px;
+    color: #444;
+    margin-bottom: 5px;
+  }
+
+  /* KPI CARDS */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .kpi-card {
+    background: #f7f8fa;
+    border-radius: 6px;
+    padding: 20px 18px;
+    border-top: 3px solid #1c2b3a;
+  }
+  .kpi-card.green  { border-top-color: #2e7d52; }
+  .kpi-card.blue   { border-top-color: #2a5fa8; }
+  .kpi-card.red    { border-top-color: #b03030; }
+  .kpi-card.amber  { border-top-color: #b8760a; }
+
+  .kpi-card .kpi-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    color: #777;
+    margin-bottom: 6px;
+  }
+  .kpi-card .kpi-value {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1c2b3a;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .kpi-card.green  .kpi-value { color: #2e7d52; }
+  .kpi-card.blue   .kpi-value { color: #2a5fa8; }
+  .kpi-card.red    .kpi-value { color: #b03030; }
+  .kpi-card.amber  .kpi-value { color: #b8760a; }
+
+  .kpi-card .kpi-sub {
+    font-size: 11.5px;
+    color: #888;
+  }
+
+  /* TABELAS */
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: 6px;
+    border: 1px solid #e0e4e8;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+  }
+  thead tr {
+    background: #1c2b3a;
+    color: #fff;
+  }
+  thead th {
+    padding: 11px 14px;
+    font-size: 11.5px;
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+  }
+  tbody tr {
+    border-bottom: 1px solid #eef0f3;
+  }
+  tbody tr:last-child {
+    border-bottom: none;
+  }
+  tbody tr.total-row {
+    background: #f7f8fa;
+    font-weight: 700;
+  }
+  tbody td {
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #333;
+    vertical-align: top;
+  }
+
+  /* BADGES */
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
+  .b-green  { background: #eaf4ee; color: #2e7d52; }
+  .b-red    { background: #faeaea; color: #b03030; }
+  .b-blue   { background: #e8eef7; color: #2a5fa8; }
+  .b-amber  { background: #fdf4e3; color: #b8760a; }
+  .b-gray   { background: #f0f1f3; color: #555; }
+  .b-dark   { background: #e6e8eb; color: #1c2b3a; }
+
+  /* BARRA DE PROGRESSO */
+  .bar-track {
+    background: #e8ebee;
+    border-radius: 3px;
+    height: 10px;
+    min-width: 80px;
+  }
+  .bar-fill {
+    height: 10px;
+    border-radius: 3px;
+  }
+
+  /* CAIXAS DE ANÁLISE */
+  .analysis-box {
+    border-radius: 6px;
+    padding: 20px 22px;
+    margin-bottom: 16px;
+    border: 1px solid #e0e4e8;
+    background: #fafafa;
+  }
+  .analysis-box.notice  { background: #fdf8f0; border-left: 4px solid #b8760a; }
+  .analysis-box.alert   { background: #fef5f5; border-left: 4px solid #b03030; }
+  .analysis-box.positive { background: #f4fbf7; border-left: 4px solid #2e7d52; }
+  .analysis-box.neutral  { background: #f5f7fa; border-left: 4px solid #2a5fa8; }
+
+  .analysis-box .box-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #1c2b3a;
+    margin-bottom: 8px;
+  }
+
+  /* INSIGHT CARDS */
+  .insight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .insight-card {
+    background: #fafafa;
+    border: 1px solid #e0e4e8;
+    border-radius: 6px;
+    padding: 18px 20px;
+  }
+  .insight-card .ic-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+  .ic-title.good   { color: #2e7d52; }
+  .ic-title.warn   { color: #b8760a; }
+  .ic-title.urgent { color: #b03030; }
+
+  .insight-card ul {
+    padding-left: 16px;
+  }
+  .insight-card li {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  /* RODAPÉ */
+  .page-footer {
+    background: #f7f8fa;
+    border-top: 1px solid #e0e4e8;
+    text-align: center;
+    padding: 20px;
+    font-size: 11.5px;
+    color: #999;
+  }
+
+  @media (max-width: 640px) {
+    .page-header { padding: 24px 20px; }
+    .content { padding: 24px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CABEÇALHO -->
+<div class="page-header">
+  <h1>Relatório de Prospecção</h1>
+  <p>Meetime &nbsp;|&nbsp; Período: <strong>01 a 16 de junho de 2026</strong> &nbsp;|&nbsp; Responsável: Mariana Oliveira</p>
+  <div class="tags">
+    <span>Inbound LinkedIn</span>
+    <span>Inbound Ativo (ActiveCampaign)</span>
+    <span>SDR IA</span>
+  </div>
+</div>
+
+<div class="content">
+
+
+<!-- ════════════════════════════════════════
+     SEÇÃO 1: DASHBOARD GERAL
+═════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">1. Dashboard — Visão Geral</div>
+
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-label">Total de MQLs</div>
+      <div class="kpi-value">257</div>
+      <div class="kpi-sub">Leads no período</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">SQLs / Ganhos</div>
+      <div class="kpi-value">26</div>
+      <div class="kpi-sub">Conversão: 10,1%</div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-label">Ativos</div>
+      <div class="kpi-value">179</div>
+      <div class="kpi-sub">69,6% do total</div>
+    </div>
+    <div class="kpi-card red">
+      <div class="kpi-label">Perdidos</div>
+      <div class="kpi-value">52</div>
+      <div class="kpi-sub">Taxa de perda: 20,2%</div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th>Quantidade</th>
+          <th>Percentual</th>
+          <th style="width:38%">Distribuição</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge b-blue">Ativo</span></td>
+          <td>179</td>
+          <td>69,6%</td>
+          <td>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:69.6%; background:#2a5fa8;"></div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="badge b-red">Perdido</span></td>
+          <td>52</td>
+          <td>20,2%</td>
+          <td>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:20.2%; background:#b03030;"></div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="badge b-green">Ganho (SQL)</span></td>
+          <td>26</td>
+          <td>10,1%</td>
+          <td>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:10.1%; background:#2e7d52;"></div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="badge b-amber">Atividade Extra Agendada</span></td>
+          <td>1</td>
+          <td>0,4%</td>
+          <td>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.4%; background:#b8760a;"></div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     SEÇÃO 2: PERFORMANCE POR CADÊNCIA
+═════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">2. Performance por Cadência</div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Cadência</th>
+          <th>Total MQLs</th>
+          <th>Ganhos (SQL)</th>
+          <th>Ativos</th>
+          <th>Perdidos</th>
+          <th>Conv. %</th>
+          <th>Perda %</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <strong>Inbound LinkedIn</strong><br>
+            <span style="font-size:11.5px; color:#888;">Origem: TLA-conversao novo | Canal: linkedin</span>
+          </td>
+          <td>140</td>
+          <td><span class="badge b-amber">5</span></td>
+          <td>104</td>
+          <td>31</td>
+          <td style="font-weight:700; color:#b8760a;">3,6%</td>
+          <td>22,1%</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Inbound Ativo (ActiveCampaign)</strong><br>
+            <span style="font-size:11.5px; color:#888;">Origens diversas: site, email, google</span>
+          </td>
+          <td>77</td>
+          <td><span class="badge b-green">19</span></td>
+          <td>46</td>
+          <td>12</td>
+          <td style="font-weight:700; color:#2e7d52;">24,7%</td>
+          <td>15,6%</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>SDR IA</strong><br>
+            <span style="font-size:11.5px; color:#888;">Canal: whatsapp | Sem origem de campanha</span>
+          </td>
+          <td>40</td>
+          <td><span class="badge b-amber">2</span></td>
+          <td>29</td>
+          <td>9</td>
+          <td style="font-weight:700; color:#b8760a;">5,0%</td>
+          <td>22,5%</td>
+        </tr>
+        <tr class="total-row">
+          <td>Total Geral</td>
+          <td>257</td>
+          <td>26</td>
+          <td>179</td>
+          <td>52</td>
+          <td>10,1%</td>
+          <td>20,2%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="margin-top:12px; font-size:12px; color:#888;">* 1 lead consta com status "Atividade Extra Agendada" (Marcelo/Iguasa), não contabilizado nas categorias acima.</p>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     SEÇÃO 3: ANÁLISE POR ORIGEM E CAMPANHA
+═════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">3. Análise por Origem e Campanha</div>
+
+  <p>A tabela a seguir consolida as origens identificadas na coluna <strong>Origem - campanha</strong> extraída do Meetime, com o desempenho de cada uma no período.</p>
+
+  <div class="table-wrap" style="margin-top:18px;">
+    <table>
+      <thead>
+        <tr>
+          <th>Origem / Campanha</th>
+          <th>Fonte</th>
+          <th>Canal</th>
+          <th>Cadência</th>
+          <th>Leads</th>
+          <th>Ganhos</th>
+          <th>Perdidos</th>
+          <th>Conv. %</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>TLA-conversao novo</strong></td>
+          <td>TLA</td>
+          <td>linkedin</td>
+          <td>Inbound LinkedIn</td>
+          <td>~140</td>
+          <td>5</td>
+          <td>31</td>
+          <td style="color:#b8760a; font-weight:700;">3,6%</td>
+        </tr>
+        <tr>
+          <td><strong>botao_contrate_agora</strong></td>
+          <td>site</td>
+          <td>site</td>
+          <td>Inbound Ativo (AC)</td>
+          <td>~5</td>
+          <td>3</td>
+          <td>0</td>
+          <td style="color:#2e7d52; font-weight:700;">~60%</td>
+        </tr>
+        <tr>
+          <td><strong>Email marketing AC</strong><br><span style="font-size:11.5px;color:#999;">Webinar Black Friday, Webinar Meta, Newsletter</span></td>
+          <td>email</td>
+          <td>ActiveCampaign</td>
+          <td>Inbound Ativo (AC)</td>
+          <td>~6</td>
+          <td>0</td>
+          <td>1</td>
+          <td style="color:#b03030; font-weight:700;">0%</td>
+        </tr>
+        <tr>
+          <td><strong>Neppo (Google Ads)</strong></td>
+          <td>Search</td>
+          <td>GoogleAds</td>
+          <td>Inbound Ativo (AC)</td>
+          <td>~2</td>
+          <td>0</td>
+          <td>1</td>
+          <td style="color:#b03030; font-weight:700;">0%</td>
+        </tr>
+        <tr>
+          <td><strong>paginademo</strong></td>
+          <td>oportunidade</td>
+          <td>demo</td>
+          <td>Inbound Ativo (AC)</td>
+          <td>~1</td>
+          <td>0</td>
+          <td>0</td>
+          <td style="color:#888;">n/a</td>
+        </tr>
+        <tr>
+          <td><strong>TLA-rafa / TLA RAFA</strong></td>
+          <td>TLA</td>
+          <td>linkedin</td>
+          <td>Inbound Ativo (AC)</td>
+          <td>~2</td>
+          <td>0</td>
+          <td>0</td>
+          <td style="color:#888;">n/a</td>
+        </tr>
+        <tr>
+          <td><strong>Sem origem mapeada</strong><br><span style="font-size:11.5px;color:#999;">Campo vazio ou ausente</span></td>
+          <td>whatsapp</td>
+          <td>Desconhecido</td>
+          <td>SDR IA + Inbound Ativo (AC)</td>
+          <td>~60</td>
+          <td>2</td>
+          <td>9</td>
+          <td style="color:#b03030; font-weight:700;">3,3%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:28px;">
+
+    <!-- botao_contrate_agora -->
+    <div class="analysis-box positive">
+      <div class="box-title">Botão "Contrate Agora" (site) — Melhor origem do período</div>
+      <p>Responsável por aproximadamente 3 ganhos em 5 leads, o botão CTA do site apresentou taxa de conversão próxima a 60%. Os leads vindos por essa origem demonstraram alta intenção de compra e chegaram com clareza sobre a dor que buscavam resolver. Casos como Luiz/Affiliates BR (volume de 500 mil mensagens por semana, ex-cliente Infobip) e Lucas Bastos/Atacadão Posto 13 confirmam que o perfil de quem clica em "Contratar" no site já passou por uma jornada de consideração relevante. Esta origem deve ser priorizada em termos de investimento e atenção operacional.</p>
+    </div>
+
+    <!-- TLA-conversao novo -->
+    <div class="analysis-box notice">
+      <div class="box-title">TLA-conversao novo (LinkedIn) — Alto volume, baixa conversão</div>
+      <p>Esta campanha é responsável pelo maior volume do período (140 leads, 54% do total), porém com conversão de apenas 3,6% e nenhum ganho na cadência "Inbound LinkedIn" pura. Os 5 ganhos registrados vieram da faixa "Nova Conta", indicando que novos perfis LinkedIn prospectados de forma ativa tiveram ligeiramente melhor resultado do que os leads tradicionais da base TLA.</p>
+      <p>O principal problema identificado é a contaminação com leads fora do ICP: pessoas buscando emprego, alunos de faculdade (domínios .edu, .academico), servidores públicos (e-mails .gov, .mil.br) e profissionais com e-mail pessoal sem empresa vinculada. Esses perfis chegam ao CRM consumindo capacidade de SDR sem possibilidade real de conversão.</p>
+      <p>A taxa de perda automática por falta de contato também é preocupante: 18 leads esgotaram a cadência sem qualquer interação, o que pode indicar telefones inválidos, horários inadequados de abordagem ou perfis que nunca tiveram intenção de compra.</p>
+    </div>
+
+    <!-- Email AC -->
+    <div class="analysis-box notice">
+      <div class="box-title">E-mail marketing (ActiveCampaign) — Base antiga, baixa temperatura</div>
+      <p>Os leads identificados com origem em campanhas de e-mail datam de outubro a dezembro de 2025 (Webinar Black Friday, Webinar Novas Regras da Meta, Newsletter Neppo). Isso representa uma base com mais de 6 meses de maturação, reativada na cadência de prospecção ativa em junho de 2026. A temperatura de compra desses contatos tende a ser baixa, pois a jornada original de engajamento ocorreu há muito tempo. Nenhuma conversão foi registrada por essa origem no período. Recomenda-se avaliar se a segmentação e o timing de reativação dessas bases estão ajustados para o momento comercial atual.</p>
+    </div>
+
+    <!-- Sem origem -->
+    <div class="analysis-box alert">
+      <div class="box-title">Leads sem origem mapeada — Problema de rastreamento</div>
+      <p>Aproximadamente 60 leads do SDR IA e parte do Inbound Ativo (AC) entram na cadência sem nenhuma informação na coluna "Origem - campanha". Isso inviabiliza a análise de atribuição e o cálculo de ROI de qualquer investimento em tráfego pago ou ação de marketing. Os leads do SDR IA entram pelo WhatsApp com e-mail no formato @semagenda.com.br, sem UTM ou parâmetro de rastreamento associado. Esta lacuna é crítica para a tomada de decisão do analista de mídia e precisa ser corrigida com urgência na estrutura de integração entre o bot de WhatsApp e o Meetime.</p>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     SEÇÃO 4: QUALIDADE DOS LEADS POR CADÊNCIA
+═════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">4. Qualidade dos Leads por Cadência</div>
+
+  <!-- Inbound LinkedIn -->
+  <h3>Inbound LinkedIn</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Critério de Qualidade</th>
+          <th>Avaliação</th>
+          <th>Observação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>E-mail corporativo (domínio empresa)</td>
+          <td><span class="badge b-amber">Parcial</span></td>
+          <td>Grande parte com Gmail, Hotmail, domínios .edu e Apple Relay (@privaterelay.appleid.com)</td>
+        </tr>
+        <tr>
+          <td>Empresa identificada no cadastro</td>
+          <td><span class="badge b-red">Baixo</span></td>
+          <td>Mais de 70% dos leads entram sem empresa ou cargo preenchido</td>
+        </tr>
+        <tr>
+          <td>Setor público / licitação</td>
+          <td><span class="badge b-red">Alta incidência</span></td>
+          <td>E-mails .gov.br, .mil.br, .edu.br e .academico presentes em múltiplos leads</td>
+        </tr>
+        <tr>
+          <td>Leads buscando emprego</td>
+          <td><span class="badge b-red">Presente</span></td>
+          <td>3 leads explicitamente descartados por estarem em busca de oportunidade de trabalho</td>
+        </tr>
+        <tr>
+          <td>Leads com diagnóstico NEPC completo</td>
+          <td><span class="badge b-green">Sim (poucos)</span></td>
+          <td>Jonas/Wine Tecnologia, Fernanda/Grupo CFL e Mayra/Pera Turismo foram convertidos com alto fit</td>
+        </tr>
+        <tr>
+          <td>Taxa de contato estabelecido</td>
+          <td><span class="badge b-red">Baixo</span></td>
+          <td>18 perdas automáticas por esgotamento da cadência sem contato</td>
+        </tr>
+        <tr>
+          <td>Taxa de conversão geral</td>
+          <td><span class="badge b-red">3,6%</span></td>
+          <td>Abaixo do esperado dado o volume investido</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Inbound Ativo AC -->
+  <h3 style="margin-top:28px;">Inbound Ativo (ActiveCampaign)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Critério de Qualidade</th>
+          <th>Avaliação</th>
+          <th>Observação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>E-mail corporativo (domínio empresa)</td>
+          <td><span class="badge b-green">Alto</span></td>
+          <td>Grande parte dos leads com domínio empresarial identificado</td>
+        </tr>
+        <tr>
+          <td>Empresa e cargo identificados</td>
+          <td><span class="badge b-green">Alto</span></td>
+          <td>Leads tendem a preencher o formulário com dados completos da empresa</td>
+        </tr>
+        <tr>
+          <td>Perfil de decisor</td>
+          <td><span class="badge b-green">Presente</span></td>
+          <td>CEO, Diretor, Gerente e equivalentes em maioria</td>
+        </tr>
+        <tr>
+          <td>Leads com diagnóstico completo</td>
+          <td><span class="badge b-green">Alta frequência</span></td>
+          <td>Gabriel/ICO, Lucas/V4+Posto13, Diogo/Multfila, Yuri/Central Consultas, Yara/New Pilates, Caroline/Scire, Luiz/Affiliates BR, Patrício/Hotel Ipê, LILIAN/LGSO, entre outros</td>
+        </tr>
+        <tr>
+          <td>Tickets identificados</td>
+          <td><span class="badge b-green">Variado</span></td>
+          <td>De micro (podologia, lava-car) a Enterprise (Affiliates BR, Scire, CFL, Central Consultas)</td>
+        </tr>
+        <tr>
+          <td>Leads fora de perfil</td>
+          <td><span class="badge b-amber">Presente</span></td>
+          <td>Jonatan (revendedor Shopee), Douglas (Instagram pessoal), Cristiane (já cliente Neppo), kaue (pessoa física)</td>
+        </tr>
+        <tr>
+          <td>Taxa de conversão geral</td>
+          <td><span class="badge b-green">24,7%</span></td>
+          <td>Melhor desempenho entre todas as cadências do período</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SDR IA -->
+  <h3 style="margin-top:28px;">SDR IA (WhatsApp)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Critério de Qualidade</th>
+          <th>Avaliação</th>
+          <th>Observação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Origem de campanha mapeada</td>
+          <td><span class="badge b-red">Ausente</span></td>
+          <td>Nenhum lead do SDR IA possui campanha de origem preenchida no Meetime</td>
+        </tr>
+        <tr>
+          <td>Qualidade dos dados de cadastro</td>
+          <td><span class="badge b-red">Baixo</span></td>
+          <td>E-mails no formato @semagenda.com.br com número de telefone como identificador (ex: 5511xxxxxxx@semagenda.com.br)</td>
+        </tr>
+        <tr>
+          <td>Duplicação de leads</td>
+          <td><span class="badge b-red">Alta</span></td>
+          <td>Vários contatos entram duas vezes: uma via SDR IA (WhatsApp) e outra via Inbound Ativo (AC) com dados enriquecidos. Ex: Vitor (CPFL), Roger (Mendes Ortega), Douglas (Barros), Leandro (JF Soluções), Ana (Achadinhos da Biah)</td>
+        </tr>
+        <tr>
+          <td>Fit de ICP</td>
+          <td><span class="badge b-amber">Variado</span></td>
+          <td>Mistura de leads com alto potencial (Debora/Bild, Samuel/ProAir, Vanessa Cunha/Podologia, Jheimys/Loja Adrena) e leads sem fit (Pessoa física, segmento não aderente)</td>
+        </tr>
+        <tr>
+          <td>Ganhos gerados</td>
+          <td><span class="badge b-amber">2 SQLs</span></td>
+          <td>Debora/Bild Imóveis e outro lead qualificado. Taxa de 5% sobre 40 leads</td>
+        </tr>
+        <tr>
+          <td>Leads de alto potencial convertidos por humano</td>
+          <td><span class="badge b-green">Sim</span></td>
+          <td>O SDR IA atua como triagem; os melhores leads são transferidos para atendimento humano (Iara Martins) que realiza o agendamento e fecha o SQL</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     SEÇÃO 5: MOTIVOS DE PERDA
+═════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">5. Motivos de Perda (52 leads)</div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Motivo</th>
+          <th>Qtde</th>
+          <th>% sobre perdidos</th>
+          <th>Cadência mais afetada</th>
+          <th>Ação recomendada</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge b-gray">Não houve contato: perda automática</span></td>
+          <td>18</td>
+          <td>34,6%</td>
+          <td>Inbound LinkedIn</td>
+          <td>Revisar número de tentativas e horários de abordagem. Avaliar qualidade dos telefones cadastrados</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-red">Pessoa física</span></td>
+          <td>9</td>
+          <td>17,3%</td>
+          <td>Inbound LinkedIn + SDR IA</td>
+          <td>Refinar segmentação de ICP no LinkedIn. Adicionar filtro de cargo/empresa no formulário de entrada</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-amber">Sem interesse</span></td>
+          <td>8</td>
+          <td>15,4%</td>
+          <td>Todas as cadências</td>
+          <td>Analisar objeções recorrentes (preço, timing). Criar régua de nutrição para leads sem interesse imediato</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-gray">Sem dados suficientes para contato</span></td>
+          <td>6</td>
+          <td>11,5%</td>
+          <td>Inbound Ativo (AC) + LinkedIn</td>
+          <td>Validar número de telefone na entrada do lead. Apple Relay (@privaterelay.appleid.com) deve ser tratado como dado inválido</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-gray">Não tem fit / segmento não aderente</span></td>
+          <td>5</td>
+          <td>9,6%</td>
+          <td>SDR IA + LinkedIn</td>
+          <td>Revisar ICP definido para segmentação do bot e da campanha LinkedIn. Descartar automações que atingem nichos sem fit</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-amber">Procurando emprego</span></td>
+          <td>3</td>
+          <td>5,8%</td>
+          <td>Inbound LinkedIn</td>
+          <td>Segmentação da campanha LinkedIn está alcançando profissionais em transição de carreira. Revisar públicos e copy dos anúncios</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-gray">Departamento Público / Licitação</span></td>
+          <td>2</td>
+          <td>3,8%</td>
+          <td>Inbound LinkedIn</td>
+          <td>Excluir segmentos de setor público da segmentação LinkedIn. Filtrar domínios .gov.br e .mil.br</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-gray">Parou de responder</span></td>
+          <td>1</td>
+          <td>1,9%</td>
+          <td>Inbound Ativo (AC)</td>
+          <td>Avaliar se objeção de preço foi a causa. Registrar detalhe no CRM</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-gray">Já é cliente Neppo</span></td>
+          <td>1</td>
+          <td>1,9%</td>
+          <td>Inbound Ativo (AC
